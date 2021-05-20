@@ -47,7 +47,7 @@ for i, data in enumerate(test_dataloader):
     with torch.no_grad():
         left_orig = data[0].to(device).float()
         left = data[1].to(device).float()
-        right = data[2].to(device).float()
+        #right = data[2].to(device).float()
         output = model(left)
         #Reshape to 3D Tensor.
         left_orig = Tensor2img(left_orig[0,:,:,:])

@@ -15,11 +15,11 @@ Output:
 def animate(dir, output):
     frames = []
     for img in os.listdir(dir):
-        #if img.endswith('.jpg') or img.lower.endswith('.png'):
-        # new_frame = cv2.imread(os.path.join(dir,img))
-        new_frame = Image.open(os.path.join(dir, img))
-        frames.append(new_frame)
-    frames[0].save(output, format='GIF', append_images=frames[1:], save_all=True, duration=300, loop=100)
+        if img.lower().endswith('.jpg') or img.lower().endswith('.png'):
+            # new_frame = cv2.imread(os.path.join(dir,img))
+            new_frame = Image.open(os.path.join(dir, img))
+            frames.append(new_frame)
+    frames[0].save(output, format='GIF', append_images=frames[1:], save_all=True, duration=0, loop=0, fps=100)
 
 if __name__ == '__main__':
     dir = 'results/animate/output/movie'

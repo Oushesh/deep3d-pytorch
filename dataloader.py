@@ -15,11 +15,11 @@ class MyDataset(data.Dataset):
 		self.leftpath = os.path.join(root, 'left')
 		self.leftimg = os.listdir(self.leftpath)
 
-		self.rightpath = os.path.join(root, 'right')
-		self.rightimg = os.listdir(self.rightpath)
+		#self.rightpath = os.path.join(root, 'right')
+		#self.rightimg = os.listdir(self.rightpath)
 
 		self.leftimg.sort()
-		self.rightimg.sort()
+		#self.rightimg.sort()
 
 		self.orig_size = orig_size
 		self.small_size= small_size
@@ -38,10 +38,10 @@ class MyDataset(data.Dataset):
 		leftImage_small = cv2.resize(leftImage, self.small_size)/255.0
 
 		#rightImage_orig = io.imread(os.path.join(self.rightpath, self.rightimg[index]))
-		rightImage_orig = cv2.imread(os.path.join(self.rightpath, self.rightimg[index]))
+		#rightImage_orig = cv2.imread(os.path.join(self.rightpath, self.rightimg[index]))
 
 		#rightImage_orig = resize(rightImage_orig, self.orig_size) /255.0
-		rightImage_orig = cv2.resize(rightImage_orig, self.orig_size)/255.0
+		#rightImage_orig = cv2.resize(rightImage_orig, self.orig_size)/255.0
 
 		#print ('resized CV2 left img',leftImage_small)
 
@@ -54,13 +54,14 @@ class MyDataset(data.Dataset):
 		left_small = torch.from_numpy(leftImage_small)
 		left_small = left_small.permute([-1,1,0])
 
-		right_orig = torch.from_numpy(rightImage_orig)
-		right_orig = right_orig.permute([-1,1,0])
+		#right_orig = torch.from_numpy(rightImage_orig)
+		#right_orig = right_orig.permute([-1,1,0])
 
-		print ('right_orig_shape',right_orig.shape)
+		#print ('right_orig_shape',right_orig.shape)
 
 		#print ('normalised left image',left_orig)
-		return left_orig, left_small, right_orig
+		#return left_orig, left_small, right_orig
+		return left_orig, left_small
 
 
 

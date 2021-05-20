@@ -16,7 +16,7 @@ def movie2leftright(dir,category):
         state, image = videocap.read()
         count = 0
         while state:
-            if count%200==0:
+            if count%200000==0:
                 left = image[:image.shape[0]//2,:,:][:,:,::-1]
                 left = Image.fromarray(left)
                 left.resize((left.size[0], left.size[1] * 2)).save(os.path.join(os.path.join(dir,output),'movie')+ filename + str(count) + '_left' + '.jpg')
@@ -25,7 +25,7 @@ def movie2leftright(dir,category):
 
                 right = Image.fromarray(right)
                 right.resize((right.size[0], right.size[1] * 2)).save(os.path.join(os.path.join(dir,output),'movie')+ filename + str(count) + '_right' + '.jpg')
-                count+=200
+                count+=200000
         return None
 
 if __name__ == '__main__':
