@@ -29,6 +29,9 @@ all_left_img_paths = []
 all_right_img_paths = []
 left_suffix = 'image_02/data'
 right_suffix = 'image_03/data'
+
+
+'''
 for idx, trainval_dir in enumerate(train_val_data_dirs):
 	left_imgs = glob.glob(os.path.join(trainval_dir,left_suffix,'*.png'))
 	right_imgs = glob.glob(os.path.join(trainval_dir,right_suffix,'*.png'))
@@ -40,8 +43,8 @@ for idx, trainval_dir in enumerate(train_val_data_dirs):
 	all_right_img_paths.extend(right_imgs)
 
 	### sanity check to see if number of left and right images match
-	# print(len(left_imgs))
-	# print(len(right_imgs))
+	print(len(left_imgs))
+	print(len(right_imgs))
 
 combined_list = list(zip(all_left_img_paths,all_right_img_paths))
 random.shuffle(combined_list)
@@ -91,13 +94,26 @@ for idx in range(len(val_left_imgs_path)):
 	shutil.copy(val_left_imgs_path[idx],os.path.join(new_left_val_path,img_name))
 	shutil.copy(val_right_imgs_path[idx],os.path.join(new_right_val_path,img_name))
 
+'''
 
 test_left_imgs_path = []
 test_right_imgs_path = []
+
+print ('original_path',len(test_data_dirs))
+print ('left_suffix',left_suffix)
+print ('right_suffix',right_suffix)
+
+
 ### test data
 for idx, test_dir_ in enumerate(test_data_dirs):
-	left_imgs = glob.glob(os.path.join(test_dir_,left_suffix,'*.png'))
-	right_imgs = glob.glob(os.path.join(test_dir_,right_suffix,'*.png'))
+	print (test_dir_)
+	left_imgs = test_dir_ + '/' + left_suffix + '/'+'*.png'
+	print ('leftimages', left_imgs)
+	#left_imgs = glob.glob(os.path.join(test_dir_,left_suffix,'*.png'))
+	print ('path of left images',left_imgs)
+
+	left_imgs = test_dir_ + '/left_suffix' + '/*.png'
+
 
 	left_imgs.sort(key=lambda x:int(x.split('/')[-1][:x.split('/')[-1].find('.png')]))
 	right_imgs.sort(key=lambda x:int(x.split('/')[-1][:x.split('/')[-1].find('.png')]))
@@ -105,7 +121,7 @@ for idx, test_dir_ in enumerate(test_data_dirs):
 	test_left_imgs_path.extend(left_imgs)
 	test_right_imgs_path.extend(right_imgs)
 
-# print(len(test_left_imgs_path))
+print(len(test_left_imgs_path))
 
 for idx in range(len(test_left_imgs_path)):
 	base_img_name = '00000000'      # eight zeros
@@ -118,7 +134,10 @@ for idx in range(len(test_left_imgs_path)):
 		os.makedirs(new_left_test_path)
 	if not os.path.exists(new_right_test_path):
 		os.makedirs(new_right_test_path)
-		
+
+	print ('original_path',test_left_imgs_path[idx])
+	print ('target_path',os.path.join(new_left_test_path,img_name))
 	shutil.copy(test_left_imgs_path[idx],os.path.join(new_left_test_path,img_name))
 	shutil.copy(test_right_imgs_path[idx],os.path.join(new_right_test_path,img_name))
 
+#TODO: write the function video2gif here

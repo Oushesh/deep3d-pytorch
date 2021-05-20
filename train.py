@@ -16,7 +16,7 @@ from torchvision.utils import make_grid, save_image
 from torchvision import datasets, models, transforms
 from tensorboardX import SummaryWriter
 
-from model2 import *
+from model import *
 from dataloader import *
 
 ########### TensorboardX ###########

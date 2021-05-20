@@ -12,7 +12,7 @@ def generate_depth(imgL, imgR):
     window_size = 7
     
     lm = StereoSGBM_create(minDisparity=0,numDisparities=16,blockSize=5,P1=8 * 3 * window_size ** 2,P2=32 * 3 * window_size ** 2,disp12MaxDiff=1,)
-    
+
     rm = ximgproc.createRightMatcher(lm)
     
     wlf = ximgproc.createDisparityWLSFilter(matcher_left=lm)
@@ -26,7 +26,8 @@ def generate_depth(imgL, imgR):
     final = np.uint8(final)
     return final
 
-INPUT_DIR = './results/2019-04-29 12:29:15.506219/'
+#INPUT_DIR = './results/2019-04-29 12:29:15.506219/'
+INPUT_DIR = './results'
 OUTPUT_DIR = './depth/'
 list_img = os.listdir(INPUT_DIR)
 list_img.sort()

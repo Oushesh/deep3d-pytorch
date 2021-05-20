@@ -1,6 +1,6 @@
 import cv2
 import os
-import numpy as np 
+import numpy as np
 
 my_dir = '../india_gate_left_genR_dir_orig_size/'
 
@@ -18,9 +18,8 @@ for img in all_imgs:
 fourcc = cv2.VideoWriter_fourcc(*'MP4V') # Be sure to use lower case
 out = cv2.VideoWriter('india_gate_long_orig_3d_vid.avi', fourcc, 10.0, (width, height))
 # out = cv2.VideoWriter('long_orig_3d_vid.mp4',cv2.VideoWriter_fourcc(*'DIVX'), 15, size)
- 
+
 for i in range(len(imgs_for_video)):
     print(i)
     out.write(imgs_for_video[i])
 out.release()
-
