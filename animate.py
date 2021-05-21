@@ -8,10 +8,12 @@ from PIL import Image
 
 import glob
 import cv2
+
 '''
 Input: dir: directory of images 
-Output: 
+Output: .gif file. 
 '''
+
 def animate(dir, output):
     frames = []
     for img in os.listdir(dir):
@@ -28,4 +30,4 @@ if __name__ == '__main__':
 
 #Refactor here and then work it out
 #TODO: Perform the stereoscopic test on small video scenes
-#TODO: check for handling of large files
+#TODO: check for handling of large files --> Kafka
