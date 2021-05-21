@@ -1,60 +1,52 @@
 import cv2
 import torch
-
-from torchvision.utils import make_grid, save_image
-from torch.optim import lr_scheduler
-from torchvision import datasets, models, transforms
-from tensorboardX import SummaryWriter
-
 from model import *
 from dataloader import *
+from utils import *
 
-RES_DIR = 'results/'
-if not os.path.exists(RES_DIR):
-    os.makedirs(RES_DIR)
-
-dataroot = 'data/test/'
-weight_file = 'data/99_20_view_syn_weights_l1with_scheduler.pth'
-batch = 1
-
-#device = torch.device('cuda')
-device = torch.device('cpu')
-print(device)
-
-#GPU
 '''
-model = Deep3d(device=device).to(device)
-model.load_state_dict(torch.load(weight_file))
-'''
-model = Deep3d(device=device).to(device)
-model.load_state_dict(torch.load(weight_file,map_location=device))
-
-#Debugging
-'''
-for param_tensor in model.state_dict():
-    print(param_tensor, "\t", model.state_dict()[param_tensor].size())
+In any doubt consult: config.yaml for the parameters.
+eval_output --> 
+Input: configs as input
+Ouput: written generated right stereo file from Neural Network
 '''
 
-test_dataset = MyDataset(dataroot, in_transforms = None)
-test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size = batch, shuffle = False)
-model.eval()
+def eval_output(configs):
+    if not os.path.exists(configs['RES_DIR']):
+        os.makedirs(configs['RES_DIR'])
 
-def Tensor2img(tensor):
-    tensor = tensor.cpu().permute([1,-1,0]).numpy()*255.0
-    return tensor
+    device = torch.device(configs['device'])
 
-for i, data in enumerate(test_dataloader):
-    with torch.no_grad():
-        left_orig = data[0].to(device).float()
-        left = data[1].to(device).float()
-        #right = data[2].to(device).float()
-        output = model(left)
-        #Reshape to 3D Tensor.
-        left_orig = Tensor2img(left_orig[0,:,:,:])
-        left = Tensor2img(left[0,:,:,:])
-        #right = Tensor2img(right[0,:,:,:])
-        output = Tensor2img(output[0,:,:,:])
+    if configs['device']== 'cpu':
+        model = Deep3d(device=device).to(device)
+        model.load_state_dict(torch.load(configs['weight_file'], map_location=device))
+    elif configs['device']=='gpu':
+        model = Deep3d(device=device).to(device)
+        model.load_state_dict(torch.load(configs['weight_file']))
 
-        cv2.imwrite(RES_DIR + str(i) + '_output.png', output)
-        cv2.imwrite(RES_DIR + str(i) + '_left.png', left)
-        #cv2.imwrite(RES_DIR + str(i) + '_right.png', right)
+    test_dataset = MyDataset(configs['dataroot'], in_transforms=None)
+    test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=configs['batch'], shuffle=False)
+    model.eval()
+
+    # Loop over Dataloader and Inference
+    for i, data in enumerate(test_dataloader):
+        with torch.no_grad():
+            left_orig = data[0].to(device).float()
+            left = data[1].to(device).float()
+            # right = data[2].to(device).float()
+            output = model(left)
+            # Reshape to 3D Tensor.
+            left_orig = Tensor2img(left_orig[0, :, :, :])
+            left = Tensor2img(left[0, :, :, :])
+            # right = Tensor2img(right[0,:,:,:])
+            output = Tensor2img(output[0, :, :, :])
+
+            cv2.imwrite(configs['RES_DIR'] + str(i) + '_right_generated.png', output)
+            cv2.imwrite(configs['RES_DIR'] + str(i) + '_left.png', left)
+            # cv2.imwrite(configs['RES_DIR'] + str(i) + '_right.png', right)
+    return None
+
+if __name__ == '__main__':
+    config_dir = r'config.yaml'
+    configs = parse_config(config_dir)
+    eval_output(configs)

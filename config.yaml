@@ -1,0 +1,6 @@
+# Config.yaml file
+device: 'cpu' #choose between cpu and cuda for gpu
+RES_DIR: 'results/'
+dataroot: 'data/test/'
+weight_file: 'data/99_20_view_syn_weights_l1with_scheduler.pth'
+batch: 1

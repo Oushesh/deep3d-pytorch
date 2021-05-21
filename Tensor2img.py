@@ -3,10 +3,9 @@ Function serving between
 img and pytorch tensor
 By preference use cv2
 Folder:
-    - original: original image files
-    - tensor: output pytorch tensors
+    - tensor: pytorch format for tensor image
+    - converted: converted test img from pytorch tensor to img (Test of image recovery)
 '''
-
 
 import os
 import torch
