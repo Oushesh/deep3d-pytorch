@@ -12,7 +12,7 @@ def main():
     config_dir = r'config.yaml'
     configs = parse_config(config_dir)
     animate_list = eval_output(configs)
-    print (len(animate_list))
+    print ('length of animate list',len(animate_list))
     output = 'test.gif'
     img_list2_animate(animate_list,output)
     print ('Successfully created GIF')

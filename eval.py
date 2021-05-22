@@ -3,7 +3,7 @@ import torch
 from model import *
 from dataloader import *
 from utils import *
-
+import imageio
 '''
 In any doubt consult: config.yaml for the parameters.
 eval_output --> 
@@ -42,6 +42,7 @@ def eval_output(configs):
             left = Tensor2img(left[0, :, :, :])
             # right = Tensor2img(right[0,:,:,:])
             output = Tensor2img(output[0, :, :, :])
+
 
             cv2.imwrite(configs['RES_DIR'] + str(i) + '_right_generated.png', output)
             cv2.imwrite(configs['RES_DIR'] + str(i) + '_left.png', left)
