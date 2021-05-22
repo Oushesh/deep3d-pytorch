@@ -4,7 +4,8 @@ import torch.utils.data as data
 import cv2
 
 '''
-Use openCV avoid using skimage. cv2 is more optimised for large files.
+Use openCV avoid using skimage. 
+cv2 is more optimised for large files.
 '''
 
 #TODO: In future: in_transforms can be used like with albumentations library to make online affine transformation before batching
@@ -21,7 +22,7 @@ class MyDataset(data.Dataset):
 		self.rightimg.sort()
 
 		self.orig_size = orig_size
-		self.small_size= small_size
+		self.small_size = small_size
 
 	def __len__(self):
 		return len(self.leftimg)
