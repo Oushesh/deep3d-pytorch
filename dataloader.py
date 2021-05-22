@@ -32,8 +32,8 @@ class MyDataset(data.Dataset):
 		leftImage_orig = cv2.resize(leftImage,self.orig_size)/255.0
 		leftImage_small = cv2.resize(leftImage, self.small_size)/255.0
 
-		rightImage_orig = cv2.imread(os.path.join(self.rightpath, self.rightimg[index]))
-		rightImage_orig = cv2.resize(rightImage_orig, self.orig_size)/255.0
+		#rightImage_orig = cv2.imread(os.path.join(self.rightpath, self.rightimg[index]))
+		#rightImage_orig = cv2.resize(rightImage_orig, self.orig_size)/255.0
 
 		left_orig = torch.from_numpy(leftImage_orig)
 		left_orig = left_orig.permute([-1,1,0])
@@ -41,10 +41,11 @@ class MyDataset(data.Dataset):
 		left_small = torch.from_numpy(leftImage_small)
 		left_small = left_small.permute([-1,1,0])
 
-		right_orig = torch.from_numpy(rightImage_orig)
-		right_orig = right_orig.permute([-1,1,0])
+		#right_orig = torch.from_numpy(rightImage_orig)
+		#right_orig = right_orig.permute([-1,1,0])
 
-		return left_orig, left_small, right_orig
+		#return left_orig, left_small, right_orig
+		return left_orig,left_small
 
 
 

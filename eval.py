@@ -29,12 +29,14 @@ def eval_output(configs):
     model.eval()
 
     # Loop over Dataloader and Inference
+    animate_list = [] #TODO: contains the list of all images to animate
     for i, data in enumerate(test_dataloader):
         with torch.no_grad():
             left_orig = data[0].to(device).float()
             left = data[1].to(device).float()
             # right = data[2].to(device).float()
             output = model(left)
+
             # Reshape to 3D Tensor.
             left_orig = Tensor2img(left_orig[0, :, :, :])
             left = Tensor2img(left[0, :, :, :])
@@ -44,9 +46,14 @@ def eval_output(configs):
             cv2.imwrite(configs['RES_DIR'] + str(i) + '_right_generated.png', output)
             cv2.imwrite(configs['RES_DIR'] + str(i) + '_left.png', left)
             # cv2.imwrite(configs['RES_DIR'] + str(i) + '_right.png', right)
-    return None
+            animate_list.append(left)
+            animate_list.append(output)
+            print (len(animate_list))
+    return animate_list
 
+'''
 if __name__ == '__main__':
     config_dir = r'config.yaml'
     configs = parse_config(config_dir)
     eval_output(configs)
+'''
