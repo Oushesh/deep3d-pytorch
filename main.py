@@ -13,8 +13,8 @@ def main():
     configs = parse_config(config_dir)
     animate_list = eval_output(configs)
     print ('length of animate list',len(animate_list))
-    output = 'test.gif'
-    img_list2_animate(animate_list,output)
+    output_path = 'test.gif'
+    create_gif(output_path,animate_list)
     print ('Successfully created GIF')
     return None
 

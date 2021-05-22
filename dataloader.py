@@ -28,14 +28,14 @@ class MyDataset(data.Dataset):
 		return len(self.leftimg)
 
 	def __getitem__(self, index):
-		leftImage = Image.open(os.path.join(self.leftpath, self.leftimg[index]))
-		#leftImage = cv2.imread(os.path.join(self.leftpath, self.leftimg[index]))
+		#leftImage = Image.open(os.path.join(self.leftpath, self.leftimg[index]))
+		leftImage = cv2.imread(os.path.join(self.leftpath, self.leftimg[index]))
 
-		#leftImage_orig = cv2.resize(leftImage,self.orig_size)/255.0
-		leftImage_orig = leftImage.resize(self.orig_size) // 255
+		leftImage_orig = cv2.resize(leftImage,self.orig_size)/255.0
+		#leftImage_orig = leftImage.resize(self.orig_size) // 255
 
-		#leftImage_small = cv2.resize(leftImage, self.small_size)/255.0
-		leftImage_small = leftImage.resize(self.small_size)//255
+		leftImage_small = cv2.resize(leftImage, self.small_size)/255.0
+		#leftImage_small = leftImage.resize(self.small_size)//255
 
 		#rightImage_orig = cv2.imread(os.path.join(self.rightpath, self.rightimg[index]))
 		#rightImage_orig = cv2.resize(rightImage_orig, self.orig_size)/255.0
