@@ -31,8 +31,7 @@ Output: name of .gif file
 def img_list2_animate(animate_list,output):
     frames = []
     for cv2_imgs in animate_list:
-        print (cv2_imgs)
-        #color_converted = cv2.cvtColor(cv2_imgs,cv2.COLOR_BGR2RGB)
+
         pil_image = Image.fromarray(cv2_imgs) #convert to PIL Image
         frames.append(pil_image)
     frames[0].save(output,format= 'GIF',append_images= frames[1:], save_all=True,loop=0, fps= 100)
@@ -46,14 +45,14 @@ def create_gif(output_Path,animate_list):
     imageio.mimsave(output_Path,frames)
     return None
 
+'''
 if __name__ == '__main__':
-    '''
     dir = 'results/animate/output/movie'
     output = 'results/animate/output/movie/output.gif'
     animate(dir, output)
     output_path ='results/animate/output/movie/output.gif'
     create_gif(input_path,output_path)
-    '''
+'''
 #TODO: check for handling of large files --> Kafka
 #TODO; avoid copying files for transfer between cv2 to PIL format. Find a diffeent solution
 #TODO: write functions to append
