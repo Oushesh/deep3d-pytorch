@@ -10,7 +10,6 @@ cv2 is more optimised for large files.
 '''
 
 #TODO: In future: in_transforms can be used like with albumentations library to make online affine transformation before batching
-
 class MyDataset(data.Dataset):
 	def __init__(self, root, in_transforms=None, orig_size = (384, 1280),small_size=(96,320)):
 		self.leftpath = os.path.join(root,'left')
